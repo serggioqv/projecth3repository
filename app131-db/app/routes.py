@@ -24,17 +24,14 @@ def view_recipe(id):
 @myapp_obj.route("/recipe/<int:id>/delete", methods=['GET','POST'])
 @login_required
 def delete_recipe(id):
-    # Retrieve recipe by ID
+    #retrieve recipe by ID
     recipe_item = recipe.query.get(id)
-
     if recipe_item is None:
-        flash("Recipe not found.")
+        flash("not found")
         return redirect(url_for("main"))
-
-    # Delete and commit the transaction
+    #delete and commit
     db.session.delete(recipe_item)
     db.session.commit()
-
     flash("Recipe deleted successfully.")
     return redirect(url_for("main"))
 @myapp_obj.route("/login", methods=['GET', 'POST'])
