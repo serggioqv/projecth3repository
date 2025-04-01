@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enter the new recipe</title>
+</head>
+<body>
+<h1>My new recipe</h1>
+<form method="POST" action="{{ url_for('new_recipe') }}">
+    <label for="title">Title:</label>
+    <input type="text" name="title" required>
+    <br><br>
+    <label for="description">Description:</label>
+    <textarea name="description" required></textarea>
+    <br><br>
+    <label for="ingredients">Ingredients:</label>
+    <textarea name="ingredients" required></textarea>
+    <br><br>
+    <label for="instructions">Instructions:</label>
+    <textarea name="instructions" required></textarea>
+    <br><br>
+    <button type="submit">Add Recipe</button>
+    </form>
+<a href="{{ url_for('main') }}">Back to Recipes</a>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<html>
+<head>
+    <title>Home Page - my blog</title>
+</head>
+<body>
+    <h1>List of {{name}} !</h1>
+<ul>
+    {% for item in recipe_list %}
+    <li>{{item.title}}</li>
+    <br>
+    <small> By: {{item.user.username}}</small>
+    {% endfor %}
+</ul>
+</body>
+</html>
