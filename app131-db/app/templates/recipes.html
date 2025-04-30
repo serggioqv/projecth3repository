@@ -6,9 +6,9 @@
     <h1>List of {{name}} !</h1>
 <ul>
     {% for item in recipe_list %}
-    <li>{{item.title}}</li>
-    <br>
+    <li>ID:{{item.id}}, {{item.title}}</li>
     <small> By: {{item.user.username}}</small>
+    <br>
     {% endfor %}
 </ul>
 </body>
