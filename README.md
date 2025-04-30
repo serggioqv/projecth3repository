@@ -1,6 +1,9 @@
-# Food Recipes
-This is a web application that displays a list of recipes created by users
-## Instalation
+## Food Recipes
+
+This is a web application that displays a list of recipes created by users.
+
+### Installation
+
 ```bash
 mkdir my_project
 cd my_project
@@ -11,4 +14,4 @@ source venv/bin/activate
 pip install -r requirements.txt
 export FLASK_APP=app.run
 flask run
-```
+
