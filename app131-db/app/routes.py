@@ -7,20 +7,23 @@ from app.models import user
 from app import db
 # from <X> import <Y>
 
-'route to display all recipes'
+#route to display home with all recipes
 @myapp_obj.route("/")
 def main():
     name = "Recipes"
+    #object to retrieve the information from db
     recipe_list = recipe.query.all()
     return render_template("recipes.html", name=name,recipe_list=recipe_list)
+
+#route to retrieve the /recipe/id when loged in (login required)
 @myapp_obj.route("/recipe/<int:id>")
 @login_required
 def view_recipe(id):
-    # Fetch the recipe by ID
+    # fetch the recipe by ID
     recipe_item = recipe.query.get(id)
     return render_template("recipe_detail.html", recipe=recipe_item)
 
-
+#route to delete a selected recipe using its ID (login required)
 @myapp_obj.route("/recipe/<int:id>/delete", methods=['GET','POST'])
 @login_required
 def delete_recipe(id):
@@ -34,12 +37,15 @@ def delete_recipe(id):
     db.session.commit()
     flash("Recipe deleted successfully.")
     return redirect(url_for("main"))
+
+#route to handle login to the web application /login
 @myapp_obj.route("/login", methods=['GET', 'POST'])
 def login():
     #redirecting logged in users
     if current_user.is_authenticated:
         return redirect(url_for('main'))
     form = LoginForm()
+
     if form.validate_on_submit():
         user_obj=user.query.filter_by(username=form.username.data).first()
         if user_obj and user_obj.check_password(form.password.data):
@@ -52,6 +58,8 @@ def login():
     else:
         print("MOOOO MOOO")
     return render_template("login.html", form=form)
+
+#endpoint to logout from session using /logout
 @myapp_obj.route("/logout")
 @login_required
 def logout():
@@ -59,22 +67,21 @@ def logout():
     flash("logged out")
     return redirect(url_for("main"))
 
-'route to add a new recipe using GET and POST'
-
+#route to add a new recipe using GET and POST' (login required)
 @myapp_obj.route("/recipe/new", methods=['GET', 'POST'])
 @login_required
 def new_recipe():
     if request.method == "POST":
-        'authenticate logged user'
+        #ensure user is authenticated
         if not current_user.is_authenticated:
             flash("Please log in")
             return redirect(url_for("login"))
-
+        #retrieve form data
         title = request.form["title"]
         description = request.form["description"]
         ingredients = request.form["ingredients"]
         instructions = request.form["instructions"]
-
+        #create and save recipe
         new_recipe=recipe(title=title,
                           description=description,
                           ingredients=ingredients,
